@@ -1,0 +1,6 @@
+@bailable_api_HostAddress = http://localhost:5211
+
+GET {{bailable_api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
