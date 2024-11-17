@@ -1,4 +1,5 @@
-﻿using bailable_api.Models;
+﻿using bailable_api.Dtos;
+using bailable_api.Models;
 
 namespace bailable_api.Database
 {
@@ -16,5 +17,18 @@ namespace bailable_api.Database
             return _dbContext.Users.FirstOrDefault(user => user.UserId == id);
         }
 
+        public int CreateUser(RegisterUserRequestDto registerUserRequestDto)
+        {
+            User newUser = new User()
+            {
+                Name = registerUserRequestDto.Name,
+                Email = registerUserRequestDto.Email,
+                Password = registerUserRequestDto.Password,
+                Role = registerUserRequestDto.Role,
+                Surname = registerUserRequestDto.Surname,
+            };
+            _dbContext.Users.Add(newUser);
+            return _dbContext.SaveChanges();
+        }
     }
 }
