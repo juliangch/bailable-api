@@ -32,7 +32,7 @@ public class LocalesController : ControllerBase
     [HttpDelete("{id}")]
     public ActionResult DeleteLocal([FromRoute] Guid id)
     {
-        DeleteLocalRequestDto result = _localService.DeleteLocal(id);
+        DeleteLocalResponseDto result = _localService.DeleteLocal(id);
         if (result.Success)
         {
             return Ok(result);

@@ -27,4 +27,19 @@ public class EventoDao
             }).ToList();
         return events;
     }
+    public Evento CreateEvento(CreateEventoRequestDto createEventoRequestDto)
+    {
+        Evento evento = new Evento()
+        {
+            Nombre = createEventoRequestDto.Nombre,
+            Descripcion = createEventoRequestDto.Descripcion,
+            Fecha = createEventoRequestDto.Fecha,
+            Servicios = createEventoRequestDto.Servicios,
+            ImgSource = createEventoRequestDto.ImgSource,
+            Local = createEventoRequestDto.Local
+        };
+        _dbContext.Eventos.Add(evento);
+        _dbContext.SaveChanges();
+        return evento;
+    }
 }

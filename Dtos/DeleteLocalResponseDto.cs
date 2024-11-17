@@ -1,6 +1,6 @@
 ﻿namespace bailable_api.Dtos;
 
-public class DeleteLocalRequestDto
+public class DeleteLocalResponseDto
 {
 
     public bool Success { get; set; }
