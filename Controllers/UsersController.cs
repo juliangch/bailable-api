@@ -31,5 +31,18 @@ namespace bailable_api.Controllers
         {
             return _userService.CreateUser(registerUserRequestDto) > 0 ? Created() : Problem("No se pudo registrar el usuario");
         }
+
+        [HttpPost]
+        public ActionResult LoginUser([FromBody] AuthenticateUserRequestDto userAuthDto)
+        {
+            try
+            {
+                var uId = _userService.AuthenticateUser(userAuthDto);
+                return Ok(uId);
+            }
+            catch (Exception ex) { 
+                return NotFound(ex.Message);
+            }
+        }
     }
 }
