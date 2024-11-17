@@ -12,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ContextDb>(options => options.UseSqlServer(builder.Configuration["ConnectionString:Default"]));
 builder.Services.AddScoped<IEventoService, EventoService>();
+builder.Services.AddScoped<ILocalService, LocalService>();
 builder.Services.AddScoped<IUserService, UserService>();
 var app = builder.Build();
 

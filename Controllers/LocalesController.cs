@@ -1,4 +1,5 @@
 ﻿using bailable_api.Dtos;
+using bailable_api.Service;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,11 +10,23 @@ namespace bailable_api.Controllers;
 [ApiController]
 public class LocalesController : ControllerBase
 {
-
+    private readonly ILocalService _localService;
+    public LocalesController(ILocalService localService)
+    {
+        _localService = localService;
+    }
     [HttpPost]
     public ActionResult CreateLocal(RegisterLocalRequestDto registerLocalRequestDto)
     {
+        bool result = _localService.CreateLocal(registerLocalRequestDto);
+        if (result)
+        {
+            return Ok("Usuario creado con exito.");
 
-        return Ok();
+        }
+        else
+        {
+            return BadRequest("Error al registrar usuario.");
+        }
     }
 }
