@@ -25,4 +25,16 @@ public class LocalDao
         _contextDb.SaveChanges();
         return localToCreate;
     }
+    public Local GetLocalById(Guid id)
+    {
+        Local localEncontrado = _contextDb.Locales.FirstOrDefault(l => l.LocalId == id);
+        return localEncontrado;
+    }
+
+    public Local DeleteLocal(Local local)
+    {
+        _contextDb.Locales.Remove(local);
+        _contextDb.SaveChanges();
+        return local;
+    }
 }
