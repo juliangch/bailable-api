@@ -29,4 +29,17 @@ public class LocalesController : ControllerBase
             return BadRequest("Error al registrar usuario.");
         }
     }
+    [HttpDelete("{id}")]
+    public ActionResult DeleteLocal([FromRoute] Guid id)
+    {
+        DeleteLocalRequestDto result = _localService.DeleteLocal(id);
+        if (result.Success)
+        {
+            return Ok(result);
+        }
+        else
+        {
+            return BadRequest(result);
+        }
+    }
 }
