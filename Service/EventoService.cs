@@ -31,7 +31,7 @@ public class EventoService : IEventoService
             return new CreateEventoResponseDto()
             {
                 Success = false,
-                Error = "Local no encontrado"
+                Message = "Local no encontrado"
             };
         }
         if (createEventoRequestDto.Fecha <= DateTime.Now)
@@ -39,7 +39,7 @@ public class EventoService : IEventoService
             return new CreateEventoResponseDto()
             {
                 Success = false,
-                Error = "Ingrese una fecha valida."
+                Message = "Ingrese una fecha valida."
             };
         }
         if (checkDisponibilidad(localEncontrado.Eventos, createEventoRequestDto.Fecha))
@@ -51,19 +51,19 @@ public class EventoService : IEventoService
                 return new CreateEventoResponseDto()
                 {
                     Success = false,
-                    Error = "Error al crear el evento"
+                    Message = "Error al crear el evento"
                 };
             }
             return new CreateEventoResponseDto()
             {
                 Success = true,
-                Error = "Evento creado correctamente."
+                Message = "Evento creado correctamente."
             };
         }
         return new CreateEventoResponseDto()
         {
             Success = false,
-            Error = "La fecha seleccionada no se encuentra disponible."
+            Message = "La fecha seleccionada no se encuentra disponible."
         };
     }
 

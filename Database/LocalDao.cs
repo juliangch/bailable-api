@@ -21,6 +21,7 @@ public class LocalDao
             Capacidad = registerLocalRequestDto.Capacidad,
             Direccion = registerLocalRequestDto.Direccion,
             Zona = registerLocalRequestDto.Zona,
+            Duenio = registerLocalRequestDto.Duenio
         };
         _contextDb.Add(localToCreate);
         _contextDb.SaveChanges();

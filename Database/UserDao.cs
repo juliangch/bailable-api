@@ -12,7 +12,7 @@ namespace bailable_api.Database
             _dbContext = dbContext;
         }
 
-        public User GetUserById(Guid id) 
+        public User GetUserById(Guid id)
         {
             return _dbContext.Users.FirstOrDefault(user => user.UserId == id);
         }
@@ -31,7 +31,7 @@ namespace bailable_api.Database
             return _dbContext.SaveChanges();
         }
 
-        public User AuthenticateUser(AuthenticateUserRequestDto authUserDto) 
+        public User AuthenticateUser(AuthenticateUserRequestDto authUserDto)
         {
             return _dbContext.Users.First(user => user.Email == authUserDto.Email && user.Password == authUserDto.Password);
         }

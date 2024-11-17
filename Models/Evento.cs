@@ -14,4 +14,5 @@ public class Evento
     public List<Servicio>? Servicios { get; set; } = new List<Servicio>();
     public required string ImgSource { get; set; }
     public required Local Local { get; set; }
+    public DateTime? DeletedAt { get; set; }
 }

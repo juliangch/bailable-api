@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using bailable_api.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace bailable_api.Dtos;
 
@@ -12,4 +13,6 @@ public class RegisterLocalRequestDto
     public string Direccion { get; set; }
     [Required]
     public string Zona { get; set; }
+    public Guid DuenioId { get; set; }
+    public User? Duenio { get; set; }
 }
