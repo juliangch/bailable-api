@@ -8,7 +8,7 @@ namespace bailable_api.Service;
 public interface ILocalService
 {
     public bool CreateLocal(RegisterLocalRequestDto registerLocalRequestDto);
-    public DeleteLocalRequestDto DeleteLocal(Guid id);
+    public DeleteLocalResponseDto DeleteLocal(Guid id);
 }
 public class LocalService : ILocalService
 {
@@ -29,12 +29,12 @@ public class LocalService : ILocalService
         }
         return response;
     }
-    public DeleteLocalRequestDto DeleteLocal(Guid id)
+    public DeleteLocalResponseDto DeleteLocal(Guid id)
     {
         Local localEncontrado = _localDao.GetLocalById(id);
         if (localEncontrado == null)
         {
-            return new DeleteLocalRequestDto()
+            return new DeleteLocalResponseDto()
             {
                 Success = false,
                 Error = "Local no encontrado"
@@ -42,7 +42,7 @@ public class LocalService : ILocalService
         }
         if (localEncontrado.Eventos != null && localEncontrado.Eventos.Any())
         {
-            return new DeleteLocalRequestDto()
+            return new DeleteLocalResponseDto()
             {
                 Success = false,
                 Error = "El local tiene eventos proximos."
@@ -51,7 +51,7 @@ public class LocalService : ILocalService
         Local localBorrado = _localDao.DeleteLocal(localEncontrado);
         if (localBorrado != null)
         {
-            return new DeleteLocalRequestDto()
+            return new DeleteLocalResponseDto()
             {
                 Success = true,
                 Error = "Local borrado con exito."
@@ -59,7 +59,7 @@ public class LocalService : ILocalService
         }
         else
         {
-            return new DeleteLocalRequestDto()
+            return new DeleteLocalResponseDto()
             {
                 Success = false,
                 Error = "Error al borrar el local."

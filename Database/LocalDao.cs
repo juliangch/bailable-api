@@ -1,5 +1,6 @@
 ﻿using bailable_api.Dtos;
 using bailable_api.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace bailable_api.Database;
 
@@ -28,6 +29,11 @@ public class LocalDao
     public Local GetLocalById(Guid id)
     {
         Local localEncontrado = _contextDb.Locales.FirstOrDefault(l => l.LocalId == id);
+        return localEncontrado;
+    }
+    public Local GetLocalByIdWEventos(Guid id)
+    {
+        Local localEncontrado = _contextDb.Locales.Include(l => l.Eventos).FirstOrDefault(l => l.LocalId == id);
         return localEncontrado;
     }
 

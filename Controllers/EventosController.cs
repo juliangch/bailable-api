@@ -1,4 +1,5 @@
-﻿using bailable_api.Service;
+﻿using bailable_api.Dtos;
+using bailable_api.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace bailable_api.Controllers;
@@ -18,5 +19,13 @@ public class EventosController : ControllerBase
     {
         var result = _eventoService.GetEventsByDate(date);
         return Ok(result);
+    }
+    [HttpPost]
+    public ActionResult CreateEvento(CreateEventoRequestDto createEventoRequest)
+    {
+        CreateEventoResponseDto response = _eventoService.CreateEvento(createEventoRequest);
+        if (response.Success)
+            return Ok(response);
+        return BadRequest(response);
     }
 }
