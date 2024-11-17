@@ -5,10 +5,10 @@ namespace bailable_api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class EventoController : ControllerBase
+public class EventosController : ControllerBase
 {
     private readonly IEventoService _eventoService;
-    public EventoController(IEventoService eventoService)
+    public EventosController(IEventoService eventoService)
     {
         _eventoService = eventoService;
     }
