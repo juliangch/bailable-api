@@ -1,4 +1,6 @@
-﻿namespace bailable_api.Dtos
+﻿using bailable_api.Constants;
+
+namespace bailable_api.Dtos
 {
     public class RegisterUserRequestDto
     {
@@ -7,6 +9,6 @@
         public required string Surname { get; set; }
         public required string Email { get; set; }
         public required string Password { get; set; }
-        public required int Role {  get; set; }
+        public required UserRoleEnum Role { get; set; }
     }
 }

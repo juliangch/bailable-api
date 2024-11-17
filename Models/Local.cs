@@ -16,4 +16,5 @@ public class Local
     public required string Direccion { get; set; }
     public required string Zona { get; set; }
     public List<Evento>? Eventos { get; set; } = new List<Evento>();
+    public required User Duenio { get; set; }
 }
