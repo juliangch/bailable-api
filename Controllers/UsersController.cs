@@ -26,13 +26,13 @@ namespace bailable_api.Controllers
             return Ok(u);
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         public ActionResult RegisterUser([FromBody] RegisterUserRequestDto registerUserRequestDto)
         {
             return _userService.CreateUser(registerUserRequestDto) > 0 ? Created() : Problem("No se pudo registrar el usuario");
         }
 
-        [HttpPost]
+        [HttpPost("login")]
         public ActionResult LoginUser([FromBody] AuthenticateUserRequestDto userAuthDto)
         {
             try
