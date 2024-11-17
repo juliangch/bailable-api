@@ -11,6 +11,7 @@ namespace bailable_api.Controllers;
 public class LocalesController : ControllerBase
 {
     private readonly ILocalService _localService;
+
     public LocalesController(ILocalService localService)
     {
         _localService = localService;
@@ -41,5 +42,30 @@ public class LocalesController : ControllerBase
         {
             return BadRequest(result);
         }
+    }
+
+    [HttpPut("editar")]
+    public ActionResult EditLocal([FromBody] EditLocalRequestDto editLocalReqDto) 
+    {
+        try
+        {
+            _localService.CheckLocalOwnership(editLocalReqDto.Local.LocalId, editLocalReqDto.UserId);
+        }
+        catch (Exception ex) 
+        { 
+            return Unauthorized(ex.Message);
+        }
+
+        try
+        {
+            _localService.EditLocalByOwner(editLocalReqDto);
+        }
+        catch (Exception ex) 
+        {
+            return Problem(ex.Message);
+        }
+
+        return Ok();
+
     }
 }
