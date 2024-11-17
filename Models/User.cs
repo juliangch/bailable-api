@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using bailable_api.Constants;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace bailable_api.Models
@@ -22,6 +23,6 @@ namespace bailable_api.Models
         public string Password { get; set; }
 
         [Required]
-        public int Role {  get; set; }
+        public UserRoleEnum Role { get; set; }
     }
 }
