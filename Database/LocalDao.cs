@@ -32,6 +32,7 @@ public class LocalDao
         Local localEncontrado = _contextDb.Locales.FirstOrDefault(l => l.LocalId == id);
         return localEncontrado;
     }
+
     public Local GetLocalByIdWEventos(Guid id)
     {
         Local localEncontrado = _contextDb.Locales.Include(l => l.Eventos).FirstOrDefault(l => l.LocalId == id);
@@ -43,5 +44,16 @@ public class LocalDao
         _contextDb.Locales.Remove(local);
         _contextDb.SaveChanges();
         return local;
+    }
+
+    public bool IsLocalOwnedBy(Guid localId, Guid userId)
+    {
+        return _contextDb.Locales.Any(l => l.LocalId.Equals(localId) && l.DuenioId.Equals(userId));
+    }
+
+    public int UpdateLocal(Local local)
+    {
+        _contextDb.Locales.Update(local);
+        return _contextDb.SaveChanges();
     }
 }

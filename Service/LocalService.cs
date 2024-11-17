@@ -1,6 +1,8 @@
 ﻿using bailable_api.Database;
 using bailable_api.Dtos;
 using bailable_api.Models;
+using Microsoft.Identity.Client;
+
 namespace bailable_api.Service;
 
 
@@ -8,6 +10,8 @@ public interface ILocalService
 {
     public bool CreateLocal(RegisterLocalRequestDto registerLocalRequestDto);
     public DeleteLocalResponseDto DeleteLocal(Guid id);
+    public Local EditLocalByOwner(EditLocalRequestDto editLocalRequestDto);
+    public void CheckLocalOwnership(Guid localId, Guid ownerId);
 }
 public class LocalService : ILocalService
 {
@@ -71,6 +75,28 @@ public class LocalService : ILocalService
                 Message = "Error al borrar el local."
             };
         }
+    }
+
+    public void CheckLocalOwnership(Guid localId, Guid userId) 
+    {
+        if (!_localDao.IsLocalOwnedBy(localId, userId))
+        {
+            throw new InvalidOperationException("El usuario no puede editar el local");
+        }
+    }
+
+    public Local EditLocalByOwner(EditLocalRequestDto editLocalReqDto) 
+    {
+        Local editedLocal = new Local()
+        {
+            Capacidad = editLocalReqDto.Local.Capacidad,
+            Direccion = editLocalReqDto.Local.Direccion,
+            DuenioId = editLocalReqDto.Local.DuenioId,
+            Nombre = editLocalReqDto.Local.Nombre,
+            Zona = editLocalReqDto.Local.Zona
+        };
+
+        return _localDao.UpdateLocal(editedLocal) > 0 ? editedLocal : throw new Exception("No se pudo actualizar el local");
     }
 }
 
