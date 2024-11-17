@@ -10,5 +10,6 @@ public class ContextDb : DbContext
     public DbSet<Local> Locales { get; set; }
     public DbSet<Evento> Eventos { get; set; }
     public DbSet<Servicio> Servicios { get; set; }
+    public DbSet<User> Users { get; set; }
 
 }
