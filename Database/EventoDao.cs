@@ -1,6 +1,5 @@
 ﻿using bailable_api.Dtos;
 using bailable_api.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace bailable_api.Database;
 
@@ -15,8 +14,6 @@ public class EventoDao
     public List<EventsByDateResponseDto> GetEventsByDate(DateTime date)
     {
         List<EventsByDateResponseDto> events = _dbContext.Eventos.Where(e => e.Fecha <= date)
-            .Include(e => e.Local)
-            .ThenInclude(l => l.Zona)
             .Select(e => new EventsByDateResponseDto
             {
                 Evento_id = e.EventoId,
@@ -54,8 +51,8 @@ public class EventoDao
 
     public Evento DeleteEvento(Guid id)
     {
-        var eventoToChange = _dbContext.Eventos.SingleOrDefault(e =>  e.EventoId == id);
-        if (eventoToChange != null) 
+        var eventoToChange = _dbContext.Eventos.SingleOrDefault(e => e.EventoId == id);
+        if (eventoToChange != null)
         {
             eventoToChange.DeletedAt = DateTime.Now;
             _dbContext.SaveChanges();
