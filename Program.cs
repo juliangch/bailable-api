@@ -15,6 +15,7 @@ builder.Services.AddScoped<IEventoService, EventoService>();
 builder.Services.AddScoped<ILocalService, LocalService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IReservaService, ReservaService>();
+builder.Services.AddScoped<IServicioService, ServicioService>();
 
 
 var app = builder.Build();
