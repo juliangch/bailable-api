@@ -75,7 +75,7 @@ public class EventoService : IEventoService
         return result;
     }
 
-    void DeleteEvento(CancelEventoRequestDto cancelEventoRequestDto)
+    public void DeleteEvento(CancelEventoRequestDto cancelEventoRequestDto)
     {
         if (CheckIfAuthorized(cancelEventoRequestDto.UserId, cancelEventoRequestDto.EventoId))
         {
