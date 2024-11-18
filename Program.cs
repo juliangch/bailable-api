@@ -16,9 +16,11 @@ builder.Services.AddScoped<ILocalService, LocalService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IReservaService, ReservaService>();
 builder.Services.AddScoped<IServicioService, ServicioService>();
+builder.Services.AddCors();
 
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -26,7 +28,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors(
+    options =>
+      options
+        .WithOrigins("http://localhost:8081")
+        .AllowAnyHeader()
+        .WithMethods("GET", "POST", "PUT", "DELETE")
+        .AllowCredentials()
+  );
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
