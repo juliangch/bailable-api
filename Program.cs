@@ -14,6 +14,9 @@ builder.Services.AddDbContext<ContextDb>(options => options.UseSqlServer(builder
 builder.Services.AddScoped<IEventoService, EventoService>();
 builder.Services.AddScoped<ILocalService, LocalService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IReservaService, ReservaService>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
