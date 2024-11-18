@@ -12,4 +12,5 @@ public class Servicio
     public required string Descripcion { get; set; }
     public required float Precio { get; set; }
     public required Evento Evento { get; set; }
+    public List<Reserva>? Reservas { get; set; } = new List<Reserva>();
 }

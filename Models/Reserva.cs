@@ -13,4 +13,5 @@ public class Reserva
     public List<Servicio> Servicios { get; set; } = new List<Servicio>();
     public int CantidadPersonas { get; set; }
     public float Precio { get; set; }
+    public Guid UsuarioId { get; set; }
 }
