@@ -29,4 +29,22 @@ public class EventosController : ControllerBase
         return BadRequest(response);
     }
 
+    [HttpPost("cancelar")]
+    public ActionResult CancelEvent([FromBody] CancelEventoRequestDto cancelEventoReqDto) 
+    {
+        ActionResult res;
+
+        try
+        {
+            _eventoService.DeleteEvento(cancelEventoReqDto);
+            res = Ok();
+        }
+        catch (Exception ex) 
+        {
+            res = Problem(ex.Message);
+        }
+
+        return res;
+    }
+
 }

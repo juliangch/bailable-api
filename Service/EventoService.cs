@@ -8,6 +8,7 @@ public interface IEventoService
 {
     public List<EventsByDateResponseDto> GetEventsByDate(DateTime date);
     public CreateEventoResponseDto CreateEvento(CreateEventoRequestDto createEventoRequestDto);
+    public void DeleteEvento(CancelEventoRequestDto cancelEventoRequestDto);
 }
 public class EventoService : IEventoService
 {
@@ -72,5 +73,21 @@ public class EventoService : IEventoService
         Evento eventoEncontrado = eventos.FirstOrDefault(e => e.Fecha == fecha);
         bool result = eventoEncontrado != null ? false : true;
         return result;
+    }
+
+    public void DeleteEvento(CancelEventoRequestDto cancelEventoRequestDto)
+    {
+        if (CheckIfAuthorized(cancelEventoRequestDto.UserId, cancelEventoRequestDto.EventoId))
+        {
+            var result = _eventoDao.DeleteEvento(cancelEventoRequestDto.EventoId);
+            
+        } else
+        {
+            throw new Exception("No puede cancelar el evento");
+        }
+    }
+
+    private bool CheckIfAuthorized(Guid userId, Guid eventoId) { 
+        throw new NotImplementedException(); 
     }
 }
