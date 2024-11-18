@@ -42,4 +42,13 @@ public class EventoDao
         _dbContext.SaveChanges();
         return evento;
     }
+    public EventoWCapacidadDto GetEventoById(Guid id)
+    {
+        EventoWCapacidadDto evento = _dbContext.Eventos.Where(e => e.EventoId == id).Select(e => new EventoWCapacidadDto
+        {
+            Evento = e,
+            Capacidad = e.Local.Capacidad,
+        }).FirstOrDefault();
+        return evento;
+    }
 }

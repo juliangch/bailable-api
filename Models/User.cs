@@ -24,5 +24,6 @@ namespace bailable_api.Models
 
         [Required]
         public UserRoleEnum Role { get; set; }
+        public List<Reserva>? Reservas { get; set; } = new List<Reserva>();
     }
 }
