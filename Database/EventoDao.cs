@@ -51,4 +51,15 @@ public class EventoDao
         }).FirstOrDefault();
         return evento;
     }
+
+    public Evento DeleteEvento(Guid id)
+    {
+        var eventoToChange = _dbContext.Eventos.SingleOrDefault(e =>  e.EventoId == id);
+        if (eventoToChange != null) 
+        {
+            eventoToChange.DeletedAt = DateTime.Now;
+            _dbContext.SaveChanges();
+        }
+        return eventoToChange;
+    }
 }
