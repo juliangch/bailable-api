@@ -9,8 +9,6 @@ public class Local
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid LocalId { get; set; }
-    [ForeignKey("UserId")]
-    public required Guid DuenioId { get; set; }
     public required string Nombre { get; set; }
     public required int Capacidad { get; set; }
     public required string Direccion { get; set; }

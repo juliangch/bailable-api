@@ -48,7 +48,7 @@ public class LocalDao
 
     public bool IsLocalOwnedBy(Guid localId, Guid userId)
     {
-        return _contextDb.Locales.Any(l => l.LocalId.Equals(localId) && l.DuenioId.Equals(userId));
+        return _contextDb.Locales.Any(l => l.LocalId.Equals(localId) && l.Duenio.UserId.Equals(userId));
     }
 
     public int UpdateLocal(Local local)

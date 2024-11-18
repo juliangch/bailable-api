@@ -87,13 +87,15 @@ public class LocalService : ILocalService
 
     public Local EditLocalByOwner(EditLocalRequestDto editLocalReqDto) 
     {
+        var userDuenio = _userDao.GetUserById(editLocalReqDto.UserId);
+
         Local editedLocal = new Local()
         {
             Capacidad = editLocalReqDto.Local.Capacidad,
             Direccion = editLocalReqDto.Local.Direccion,
-            DuenioId = editLocalReqDto.Local.DuenioId,
             Nombre = editLocalReqDto.Local.Nombre,
-            Zona = editLocalReqDto.Local.Zona
+            Zona = editLocalReqDto.Local.Zona,
+            Duenio = userDuenio,
         };
 
         return _localDao.UpdateLocal(editedLocal) > 0 ? editedLocal : throw new Exception("No se pudo actualizar el local");
