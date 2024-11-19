@@ -57,7 +57,7 @@ public class ReservaService : IReservaService
 
             };
         }
-        if (CalcularCapacidad(evento, createRerservaRequestDto.CantidadPersonas))
+        if (!CalcularCapacidad(evento, createRerservaRequestDto.CantidadPersonas))
         {
             return new CreateReservaResponseDto()
             {
