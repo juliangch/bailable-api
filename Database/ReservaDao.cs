@@ -30,8 +30,11 @@ public class ReservaDao
 
     public int GetReservasByEvento(Guid eventoId)
     {
-        int cantReservas = _contextDb.Reservas.Count(r => r.Evento.EventoId == eventoId);
-        return cantReservas;
+        int totalPersonas = _contextDb.Reservas
+        .Where(r => r.Evento.EventoId == eventoId)
+        .Sum(r => r.CantidadPersonas);
+
+        return totalPersonas;
     }
     public List<ReservaDetailsDto> GetReservasByUserId(Guid userId)
     {
