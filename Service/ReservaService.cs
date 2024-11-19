@@ -66,7 +66,7 @@ public class ReservaService : IReservaService
 
             };
         }
-        createRerservaRequestDto.Precio = CalcularPrecioReserva(createRerservaRequestDto.ServiciosIds);
+        createRerservaRequestDto.Precio = CalcularPrecioReserva(createRerservaRequestDto.ServiciosIds) * createRerservaRequestDto.CantidadPersonas;
         createRerservaRequestDto.User = usuario;
         createRerservaRequestDto.Evento = evento.Evento;
         Reserva reserva = _reservaDao.CreateReserva(createRerservaRequestDto);
