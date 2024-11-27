@@ -40,7 +40,7 @@ app.UseCors(
         .WithMethods("GET", "POST", "PUT", "DELETE")
         .AllowCredentials()
   );
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
