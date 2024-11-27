@@ -35,7 +35,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors(
     options =>
       options
-        .WithOrigins("http://localhost:8081")
+        .WithOrigins("http://localhost:8081", "http://localhost:8082")
         .AllowAnyHeader()
         .WithMethods("GET", "POST", "PUT", "DELETE")
         .AllowCredentials()
