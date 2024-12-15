@@ -56,4 +56,8 @@ public class LocalDao
         _contextDb.Locales.Update(local);
         return _contextDb.SaveChanges();
     }
+    public List<Local> GetLocalesByDuenio(Guid duenioId)
+    {
+        return _contextDb.Locales.Where(l => IsLocalOwnedBy(l.LocalId, duenioId)).ToList();
+    }
 }

@@ -1,7 +1,6 @@
 ﻿using bailable_api.Database;
 using bailable_api.Dtos;
 using bailable_api.Models;
-using Microsoft.Identity.Client;
 
 namespace bailable_api.Service;
 
@@ -12,6 +11,7 @@ public interface ILocalService
     public DeleteLocalResponseDto DeleteLocal(Guid id);
     public Local EditLocalByOwner(EditLocalRequestDto editLocalRequestDto);
     public void CheckLocalOwnership(Guid localId, Guid ownerId);
+    public List<Local> GetLocalesByDuenioId(Guid duenioId);
 }
 public class LocalService : ILocalService
 {
@@ -77,7 +77,7 @@ public class LocalService : ILocalService
         }
     }
 
-    public void CheckLocalOwnership(Guid localId, Guid userId) 
+    public void CheckLocalOwnership(Guid localId, Guid userId)
     {
         if (!_localDao.IsLocalOwnedBy(localId, userId))
         {
@@ -85,7 +85,7 @@ public class LocalService : ILocalService
         }
     }
 
-    public Local EditLocalByOwner(EditLocalRequestDto editLocalReqDto) 
+    public Local EditLocalByOwner(EditLocalRequestDto editLocalReqDto)
     {
         var userDuenio = _userDao.GetUserById(editLocalReqDto.UserId);
 
@@ -99,6 +99,10 @@ public class LocalService : ILocalService
         };
 
         return _localDao.UpdateLocal(editedLocal) > 0 ? editedLocal : throw new Exception("No se pudo actualizar el local");
+    }
+    public List<Local> GetLocalesByDuenioId(Guid duenioId)
+    {
+        return _localDao.GetLocalesByDuenio(duenioId);
     }
 }
 

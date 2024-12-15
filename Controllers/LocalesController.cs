@@ -45,14 +45,14 @@ public class LocalesController : ControllerBase
     }
 
     [HttpPut("editar")]
-    public ActionResult EditLocal([FromBody] EditLocalRequestDto editLocalReqDto) 
+    public ActionResult EditLocal([FromBody] EditLocalRequestDto editLocalReqDto)
     {
         try
         {
             _localService.CheckLocalOwnership(editLocalReqDto.Local.LocalId, editLocalReqDto.UserId);
         }
-        catch (Exception ex) 
-        { 
+        catch (Exception ex)
+        {
             return Unauthorized(ex.Message);
         }
 
@@ -60,12 +60,17 @@ public class LocalesController : ControllerBase
         {
             _localService.EditLocalByOwner(editLocalReqDto);
         }
-        catch (Exception ex) 
+        catch (Exception ex)
         {
             return Problem(ex.Message);
         }
 
         return Ok();
 
+    }
+    [HttpGet()]
+    public ActionResult GetLocalesByDuenio([FromQuery] Guid duenioId)
+    {
+        return Ok(_localService.GetLocalesByDuenioId(duenioId));
     }
 }
