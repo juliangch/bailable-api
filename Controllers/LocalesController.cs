@@ -22,12 +22,12 @@ public class LocalesController : ControllerBase
         bool result = _localService.CreateLocal(registerLocalRequestDto);
         if (result)
         {
-            return Ok("Usuario creado con exito.");
+            return Ok("Local creado con exito.");
 
         }
         else
         {
-            return BadRequest("Error al registrar usuario.");
+            return BadRequest("Error al crear local.");
         }
     }
     [HttpDelete("{id}")]
