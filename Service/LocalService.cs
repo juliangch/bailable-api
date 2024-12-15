@@ -12,6 +12,7 @@ public interface ILocalService
     public Local EditLocalByOwner(EditLocalRequestDto editLocalRequestDto);
     public void CheckLocalOwnership(Guid localId, Guid ownerId);
     public List<Local> GetLocalesByDuenioId(Guid duenioId);
+    public Local GetLocalById(Guid localId);
 }
 public class LocalService : ILocalService
 {
@@ -103,6 +104,11 @@ public class LocalService : ILocalService
     public List<Local> GetLocalesByDuenioId(Guid duenioId)
     {
         return _localDao.GetLocalesByDuenio(duenioId);
+    }
+    public Local GetLocalById(Guid localId)
+    {
+        Local local = _localDao.GetLocalById(localId);
+        return local;
     }
 }
 
