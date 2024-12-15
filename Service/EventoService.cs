@@ -9,6 +9,7 @@ public interface IEventoService
     public List<EventsByDateResponseDto> GetEventsByDate(DateTime date);
     public CreateEventoResponseDto CreateEvento(CreateEventoRequestDto createEventoRequestDto);
     public void DeleteEvento(CancelEventoRequestDto cancelEventoRequestDto);
+    public List<Evento> GetEventosByLocalId(Guid localId);
 }
 public class EventoService : IEventoService
 {
@@ -80,14 +81,22 @@ public class EventoService : IEventoService
         if (CheckIfAuthorized(cancelEventoRequestDto.UserId, cancelEventoRequestDto.EventoId))
         {
             var result = _eventoDao.DeleteEvento(cancelEventoRequestDto.EventoId);
-            
-        } else
+
+        }
+        else
         {
             throw new Exception("No puede cancelar el evento");
         }
     }
 
-    private bool CheckIfAuthorized(Guid userId, Guid eventoId) { 
-        throw new NotImplementedException(); 
+    private bool CheckIfAuthorized(Guid userId, Guid eventoId)
+    {
+        throw new NotImplementedException();
+    }
+    public List<Evento> GetEventosByLocalId(Guid localId)
+    {
+        List<Evento> eventosByLocal = new List<Evento>();
+        eventosByLocal = _eventoDao.GetEventoByLocalId(localId);
+        return eventosByLocal;
     }
 }

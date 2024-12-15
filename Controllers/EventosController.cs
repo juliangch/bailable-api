@@ -30,7 +30,7 @@ public class EventosController : ControllerBase
     }
 
     [HttpPost("cancelar")]
-    public ActionResult CancelEvent([FromBody] CancelEventoRequestDto cancelEventoReqDto) 
+    public ActionResult CancelEvent([FromBody] CancelEventoRequestDto cancelEventoReqDto)
     {
         ActionResult res;
 
@@ -39,12 +39,17 @@ public class EventosController : ControllerBase
             _eventoService.DeleteEvento(cancelEventoReqDto);
             res = Ok();
         }
-        catch (Exception ex) 
+        catch (Exception ex)
         {
             res = Problem(ex.Message);
         }
 
         return res;
     }
-
+    [HttpGet("locales/{localId}")]
+    public ActionResult GetEventosByLocal([FromRoute] Guid localId)
+    {
+        var result = _eventoService.GetEventosByLocalId(localId);
+        return Ok(result);
+    }
 }

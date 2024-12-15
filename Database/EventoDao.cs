@@ -1,5 +1,6 @@
 ﻿using bailable_api.Dtos;
 using bailable_api.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace bailable_api.Database;
 
@@ -58,5 +59,9 @@ public class EventoDao
             _dbContext.SaveChanges();
         }
         return eventoToChange;
+    }
+    public List<Evento> GetEventoByLocalId(Guid localId)
+    {
+        return _dbContext.Eventos.Include(e => e.Local).Where(e => e.Local.LocalId == localId).ToList();
     }
 }
