@@ -58,6 +58,6 @@ public class LocalDao
     }
     public List<Local> GetLocalesByDuenio(Guid duenioId)
     {
-        return _contextDb.Locales.Where(l => IsLocalOwnedBy(l.LocalId, duenioId)).ToList();
+        return _contextDb.Locales.Where(l => l.Duenio.UserId == duenioId).ToList();
     }
 }
