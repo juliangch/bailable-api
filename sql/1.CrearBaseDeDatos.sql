@@ -1,1 +1,285 @@
-CREATE DATABASE BailableBD;
+USE [master]
+GO
+/****** Object:  Database [BailableBD]    Script Date: 15/12/2024 15:34:36 ******/
+CREATE DATABASE [BailableBD]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'BailableBD', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\BailableBD.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'BailableBD_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\BailableBD_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [BailableBD] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [BailableBD].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [BailableBD] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [BailableBD] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [BailableBD] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [BailableBD] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [BailableBD] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [BailableBD] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [BailableBD] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [BailableBD] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [BailableBD] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [BailableBD] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [BailableBD] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [BailableBD] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [BailableBD] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [BailableBD] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [BailableBD] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [BailableBD] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [BailableBD] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [BailableBD] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [BailableBD] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [BailableBD] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [BailableBD] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [BailableBD] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [BailableBD] SET RECOVERY FULL 
+GO
+ALTER DATABASE [BailableBD] SET  MULTI_USER 
+GO
+ALTER DATABASE [BailableBD] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [BailableBD] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [BailableBD] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [BailableBD] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [BailableBD] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [BailableBD] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'BailableBD', N'ON'
+GO
+ALTER DATABASE [BailableBD] SET QUERY_STORE = OFF
+GO
+USE [BailableBD]
+GO
+/****** Object:  User [bailable_user]    Script Date: 15/12/2024 15:34:36 ******/
+CREATE USER [bailable_user] FOR LOGIN [bailable_user] WITH DEFAULT_SCHEMA=[dbo]
+GO
+ALTER ROLE [db_owner] ADD MEMBER [bailable_user]
+GO
+/****** Object:  Table [dbo].[__EFMigrationsHistory]    Script Date: 15/12/2024 15:34:36 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[__EFMigrationsHistory](
+	[MigrationId] [nvarchar](150) NOT NULL,
+	[ProductVersion] [nvarchar](32) NOT NULL,
+ CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY CLUSTERED 
+(
+	[MigrationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Eventos]    Script Date: 15/12/2024 15:34:36 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Eventos](
+	[EventoId] [uniqueidentifier] NOT NULL,
+	[Nombre] [nvarchar](max) NOT NULL,
+	[Descripcion] [nvarchar](max) NOT NULL,
+	[Fecha] [datetime2](7) NOT NULL,
+	[ImgSource] [nvarchar](max) NOT NULL,
+	[LocalId] [uniqueidentifier] NOT NULL,
+	[DeletedAt] [datetime2](7) NULL,
+ CONSTRAINT [PK_Eventos] PRIMARY KEY CLUSTERED 
+(
+	[EventoId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Locales]    Script Date: 15/12/2024 15:34:36 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Locales](
+	[LocalId] [uniqueidentifier] NOT NULL,
+	[Nombre] [nvarchar](max) NOT NULL,
+	[Capacidad] [int] NOT NULL,
+	[Direccion] [nvarchar](max) NOT NULL,
+	[Zona] [nvarchar](max) NOT NULL,
+	[DuenioUserId] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK_Locales] PRIMARY KEY CLUSTERED 
+(
+	[LocalId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Reservas]    Script Date: 15/12/2024 15:34:36 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Reservas](
+	[ReservaId] [uniqueidentifier] NOT NULL,
+	[EventoId] [uniqueidentifier] NOT NULL,
+	[CantidadPersonas] [int] NOT NULL,
+	[Precio] [real] NOT NULL,
+	[UsuarioId] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK_Reservas] PRIMARY KEY CLUSTERED 
+(
+	[ReservaId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ReservaServicio]    Script Date: 15/12/2024 15:34:36 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ReservaServicio](
+	[ReservaId] [uniqueidentifier] NOT NULL,
+	[ServicioId] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK_ReservaServicio] PRIMARY KEY CLUSTERED 
+(
+	[ReservaId] ASC,
+	[ServicioId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Servicios]    Script Date: 15/12/2024 15:34:36 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Servicios](
+	[ServicioId] [uniqueidentifier] NOT NULL,
+	[Nombre] [nvarchar](max) NOT NULL,
+	[Descripcion] [nvarchar](max) NOT NULL,
+	[Precio] [real] NOT NULL,
+	[EventoId] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK_Servicios] PRIMARY KEY CLUSTERED 
+(
+	[ServicioId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Users]    Script Date: 15/12/2024 15:34:36 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Users](
+	[UserId] [uniqueidentifier] NOT NULL,
+	[Name] [nvarchar](max) NOT NULL,
+	[Surname] [nvarchar](max) NOT NULL,
+	[Email] [nvarchar](max) NOT NULL,
+	[Password] [nvarchar](max) NOT NULL,
+	[Role] [int] NOT NULL,
+ CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Eventos_LocalId]    Script Date: 15/12/2024 15:34:36 ******/
+CREATE NONCLUSTERED INDEX [IX_Eventos_LocalId] ON [dbo].[Eventos]
+(
+	[LocalId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Locales_DuenioUserId]    Script Date: 15/12/2024 15:34:36 ******/
+CREATE NONCLUSTERED INDEX [IX_Locales_DuenioUserId] ON [dbo].[Locales]
+(
+	[DuenioUserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Reservas_EventoId]    Script Date: 15/12/2024 15:34:36 ******/
+CREATE NONCLUSTERED INDEX [IX_Reservas_EventoId] ON [dbo].[Reservas]
+(
+	[EventoId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Reservas_UsuarioId]    Script Date: 15/12/2024 15:34:36 ******/
+CREATE NONCLUSTERED INDEX [IX_Reservas_UsuarioId] ON [dbo].[Reservas]
+(
+	[UsuarioId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_ReservaServicio_ServicioId]    Script Date: 15/12/2024 15:34:36 ******/
+CREATE NONCLUSTERED INDEX [IX_ReservaServicio_ServicioId] ON [dbo].[ReservaServicio]
+(
+	[ServicioId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Servicios_EventoId]    Script Date: 15/12/2024 15:34:36 ******/
+CREATE NONCLUSTERED INDEX [IX_Servicios_EventoId] ON [dbo].[Servicios]
+(
+	[EventoId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Eventos]  WITH CHECK ADD  CONSTRAINT [FK_Eventos_Locales_LocalId] FOREIGN KEY([LocalId])
+REFERENCES [dbo].[Locales] ([LocalId])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Eventos] CHECK CONSTRAINT [FK_Eventos_Locales_LocalId]
+GO
+ALTER TABLE [dbo].[Locales]  WITH CHECK ADD  CONSTRAINT [FK_Locales_Users_DuenioUserId] FOREIGN KEY([DuenioUserId])
+REFERENCES [dbo].[Users] ([UserId])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Locales] CHECK CONSTRAINT [FK_Locales_Users_DuenioUserId]
+GO
+ALTER TABLE [dbo].[Reservas]  WITH CHECK ADD  CONSTRAINT [FK_Reservas_Eventos_EventoId] FOREIGN KEY([EventoId])
+REFERENCES [dbo].[Eventos] ([EventoId])
+GO
+ALTER TABLE [dbo].[Reservas] CHECK CONSTRAINT [FK_Reservas_Eventos_EventoId]
+GO
+ALTER TABLE [dbo].[Reservas]  WITH CHECK ADD  CONSTRAINT [FK_Reservas_Users_UsuarioId] FOREIGN KEY([UsuarioId])
+REFERENCES [dbo].[Users] ([UserId])
+GO
+ALTER TABLE [dbo].[Reservas] CHECK CONSTRAINT [FK_Reservas_Users_UsuarioId]
+GO
+ALTER TABLE [dbo].[ReservaServicio]  WITH CHECK ADD  CONSTRAINT [FK_ReservaServicio_Reservas_ReservaId] FOREIGN KEY([ReservaId])
+REFERENCES [dbo].[Reservas] ([ReservaId])
+GO
+ALTER TABLE [dbo].[ReservaServicio] CHECK CONSTRAINT [FK_ReservaServicio_Reservas_ReservaId]
+GO
+ALTER TABLE [dbo].[ReservaServicio]  WITH CHECK ADD  CONSTRAINT [FK_ReservaServicio_Servicios_ServicioId] FOREIGN KEY([ServicioId])
+REFERENCES [dbo].[Servicios] ([ServicioId])
+GO
+ALTER TABLE [dbo].[ReservaServicio] CHECK CONSTRAINT [FK_ReservaServicio_Servicios_ServicioId]
+GO
+ALTER TABLE [dbo].[Servicios]  WITH CHECK ADD  CONSTRAINT [FK_Servicios_Eventos_EventoId] FOREIGN KEY([EventoId])
+REFERENCES [dbo].[Eventos] ([EventoId])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Servicios] CHECK CONSTRAINT [FK_Servicios_Eventos_EventoId]
+GO
+USE [master]
+GO
+ALTER DATABASE [BailableBD] SET  READ_WRITE 
+GO
