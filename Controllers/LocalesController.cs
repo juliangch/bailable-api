@@ -73,9 +73,9 @@ public class LocalesController : ControllerBase
     {
         return Ok(_localService.GetLocalesByDuenioId(duenioId));
     }
-    [HttpGet("{localId}")]
-    public ActionResult GetLocalById(Guid localId)
+    [HttpGet("{id}")]
+    public ActionResult GetLocalById(Guid id)
     {
-        return Ok(_localService.GetLocalById(localId));
+        return Ok(_localService.GetLocalById(id));
     }
 }
