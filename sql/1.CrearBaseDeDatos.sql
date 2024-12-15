@@ -77,6 +77,9 @@ GO
 USE [BailableBD]
 GO
 /****** Object:  User [bailable_user]    Script Date: 15/12/2024 16:08:56 ******/
+CREATE LOGIN bailable_user
+WITH PASSWORD = 'bailable123', 
+CHECK_POLICY = OFF;
 CREATE USER [bailable_user] FOR LOGIN [bailable_user] WITH DEFAULT_SCHEMA=[dbo]
 GO
 ALTER ROLE [db_owner] ADD MEMBER [bailable_user]
