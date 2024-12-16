@@ -21,5 +21,11 @@ namespace bailable_api.Database
             List<Servicio> servicios = _dbContext.Servicios.Where(s => s.Evento.EventoId == eventId).ToList();
             return servicios;
         }
+        public Servicio CreateServicio(Servicio servicio)
+        {
+            _dbContext.Servicios.Add(servicio);
+            _dbContext.SaveChanges();
+            return servicio;
+        }
     }
 }

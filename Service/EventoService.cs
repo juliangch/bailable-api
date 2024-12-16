@@ -15,10 +15,12 @@ public class EventoService : IEventoService
 {
     private readonly EventoDao _eventoDao;
     private readonly LocalDao _localDao;
+    private readonly ServicioDao _servicioDao;
     public EventoService(ContextDb contextDb)
     {
         _eventoDao = new EventoDao(contextDb);
         _localDao = new LocalDao(contextDb);
+        _servicioDao = new ServicioDao(contextDb);
     }
     public List<EventsByDateResponseDto> GetEventsByDate(DateTime date)
     {
@@ -55,6 +57,17 @@ public class EventoService : IEventoService
                     Success = false,
                     Message = "Error al crear el evento"
                 };
+            }
+            foreach (ServicioDto servicio in createEventoRequestDto.Servicios)
+            {
+                Servicio servicioToAdd = new Servicio()
+                {
+                    Nombre = servicio.Nombre,
+                    Descripcion = servicio.Descripcion,
+                    Precio = servicio.Precio,
+                    Evento = eventoCreado
+                };
+                _servicioDao.CreateServicio(servicioToAdd);
             }
             return new CreateEventoResponseDto()
             {

@@ -32,7 +32,6 @@ public class EventoDao
             Nombre = createEventoRequestDto.Nombre,
             Descripcion = createEventoRequestDto.Descripcion,
             Fecha = createEventoRequestDto.Fecha,
-            Servicios = createEventoRequestDto.Servicios,
             ImgSource = createEventoRequestDto.ImgSource,
             Local = createEventoRequestDto.Local
         };
