@@ -29,7 +29,7 @@ public class LocalDao
     }
     public Local GetLocalById(Guid id)
     {
-        Local localEncontrado = _contextDb.Locales.FirstOrDefault(l => l.LocalId == id);
+        Local localEncontrado = _contextDb.Locales.Include(l => l.Eventos).FirstOrDefault(l => l.LocalId == id);
         return localEncontrado;
     }
 
