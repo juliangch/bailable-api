@@ -69,6 +69,16 @@ public class ReservaService : IReservaService
         createRerservaRequestDto.Precio = CalcularPrecioReserva(createRerservaRequestDto.ServiciosIds) * createRerservaRequestDto.CantidadPersonas;
         createRerservaRequestDto.User = usuario;
         createRerservaRequestDto.Evento = evento.Evento;
+
+        foreach (Guid servicioId in createRerservaRequestDto.ServiciosIds)
+        {
+            Servicio servicioAdquirido = _servicioDao.GetServicioById(servicioId);
+            if (servicioAdquirido != null)
+            {
+                createRerservaRequestDto.Servicios.Add(servicioAdquirido);
+            }
+        }
+
         Reserva reserva = _reservaDao.CreateReserva(createRerservaRequestDto);
         if (reserva != null)
         {
